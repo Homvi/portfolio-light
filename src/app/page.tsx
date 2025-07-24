@@ -19,7 +19,8 @@ import Link from 'next/link';
 export default function PortfolioPage() {
   return (
     <>
-      <div className="absolute left-0 top-0 w-full h-screen overflow-hidden">
+      <div className="absolute left-0 top-0 w-full h-screen overflow-hidden ">
+        <div className="bg-linear-to-t from-background to-black/0 absolute z-1 bottom-0 right-0 left-0 h-14 w-full"></div>
         <Lightning
           hue={186}
           xOffset={-1}
@@ -80,7 +81,7 @@ const AboutSection = () => (
     <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
       Full-Stack Developer who builds real-world applications. I manage
       production sites for a freelance client and am the sole creator of a SaaS
-      job-seeker platform using Laravel and React.TS. I'm ready to apply my
+      job-seeker platform using Laravel and React.TS. I&apos;m ready to apply my
       practical experience to a full-time role within a great team.
     </p>
   </Section>
@@ -89,7 +90,7 @@ const AboutSection = () => (
 const FeaturedProjectSection = () => (
   <Section title="">
     <div>
-      <Card className="overflow-hidden group">
+      <Card className="overflow-hidden group pt-0">
         <div className="overflow-hidden">
           {/*  TODO: Replace with actual link to project or demo  */}
           <Link href={'#'}>
@@ -107,7 +108,7 @@ const FeaturedProjectSection = () => (
         </CardHeader>
         <CardContent>
           <p className="text-lg mb-6 text-muted-foreground">
-            This platform was built from scratch to solve a problem I'm
+            This platform was built from scratch to solve a problem I&apos;m
             passionate about: the frustrating experience for both companies and
             candidates in the hiring process. It features a transparent
             application tracking system and job validation to combat ghosting
@@ -143,62 +144,58 @@ const FeaturedProjectSection = () => (
 );
 
 const ExperienceSection = () => (
-  <AnimatedSection>
-    <Section title="Experience">
-      <div className="space-y-6">
-        <ExperienceItem
-          title="Freelance Full-Stack Developer"
-          company="Hungarian Real Estate & Business Consulting"
-          date="[Start Date] – Present"
-          description="Developed and launched a production-level real estate listing platform using Laravel and Blade. I serve as the sole technical point-of-contact, providing ongoing maintenance, feature development, and strategic advice, ensuring high uptime and client satisfaction."
-        />
-        <ExperienceItem
-          title="Full-Stack Developer (Collaborator)"
-          company="Chingu-X (Voyages)"
-          date="2024.08 - 2024.12"
-          description="Collaborated in a remote, international Agile team to build a dashboard using Next.js 14. Implemented a complex, multi-step user registration UI and successfully integrated work into a long-running main branch through Git and pull requests."
-        />
-        <ExperienceItem
-          title="Cable Installer"
-          company="Abeking & Rasmussen, Germany"
-          date="2025 - Present"
-          description="Executed complex technical plans under strict deadlines in a high-stakes industrial environment. This role honed my problem-solving skills, attention to detail, and ability to collaborate effectively with engineering teams."
-        />
-      </div>
-    </Section>
-  </AnimatedSection>
+  <Section title="Experience">
+    <div className="space-y-6">
+      <ExperienceItem
+        title="Freelance Full-Stack Developer"
+        company="Hungarian Real Estate & Business Consulting"
+        date="2023 – Present"
+        description="Developed and launched a production-level real estate listing platform using Laravel and Blade. I serve as the sole technical point-of-contact, providing ongoing maintenance, feature development, and strategic advice, ensuring high uptime and client satisfaction."
+      />
+      <ExperienceItem
+        title="Full-Stack Developer (Collaborator)"
+        company="Chingu-X (Voyages)"
+        date="2024.08 - 2024.12"
+        description="Collaborated in a remote, international Agile team to build a dashboard using Next.js 14. Implemented a complex, multi-step user registration UI and successfully integrated work into a long-running main branch through Git and pull requests."
+      />
+      <ExperienceItem
+        title="Cable Installer"
+        company="Abeking & Rasmussen, Germany"
+        date="2025 - Present"
+        description="Executed complex technical plans under strict deadlines in a high-stakes industrial environment. This role honed my problem-solving skills, attention to detail, and ability to collaborate effectively with engineering teams."
+      />
+    </div>
+  </Section>
 );
 
 const SkillsSection = () => (
-  <AnimatedSection>
-    <Section title="Core Technologies">
-      <div className="flex flex-wrap gap-3">
-        {[
-          'Laravel',
-          'PHP',
-          'React.TS',
-          'Next.js',
-          'JavaScript',
-          'TypeScript',
-          'HTML5 & CSS3',
-          'Tailwind CSS',
-          'MySQL',
-          'Git & GitHub',
-          'Agile/Scrum',
-          'Vercel',
-        ].map((skill, i) => (
-          <div key={skill}>
-            <Badge
-              variant={i < 4 ? 'default' : 'secondary'}
-              className="text-md px-4 py-2"
-            >
-              {skill}
-            </Badge>
-          </div>
-        ))}
-      </div>
-    </Section>
-  </AnimatedSection>
+  <Section title="Core Technologies">
+    <div className="flex flex-wrap gap-3">
+      {[
+        'Laravel',
+        'PHP',
+        'React.TS',
+        'Next.js',
+        'JavaScript',
+        'TypeScript',
+        'HTML5 & CSS3',
+        'Tailwind CSS',
+        'MySQL',
+        'Git & GitHub',
+        'Agile/Scrum',
+        'Vercel',
+      ].map((skill, i) => (
+        <div key={skill}>
+          <Badge
+            variant={i < 4 ? 'default' : 'secondary'}
+            className=" text-md"
+          >
+            {skill}
+          </Badge>
+        </div>
+      ))}
+    </div>
+  </Section>
 );
 
 const Footer = () => (
@@ -212,8 +209,8 @@ const Footer = () => (
 
 // --- Helper Components ---
 const Section = ({ title, children }) => (
-  <section className="mb-12 py-12">
-    <h3 className="text-2xl font-bold mb-6">{title}</h3>
+  <section className="py-12">
+    <h3 className="text-xl sm:text-3xl font-bold mb-6">{title}</h3>
     {children}
   </section>
 );
@@ -250,5 +247,3 @@ const SocialLink = ({ href, icon, label }) => (
     <span className="sr-only">{label}</span>
   </a>
 );
-
-const AnimatedSection = ({ children }) => <div>{children}</div>;
