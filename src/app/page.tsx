@@ -1,103 +1,254 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import Image from 'next/image';
+import { HeroBackground } from '@/components/hero-background';
+import Lightning from '@/components/lightning';
+import Link from 'next/link';
+
+// --- Main Page Component ---
+export default function PortfolioPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <>
+      <div className="absolute left-0 top-0 w-full h-screen overflow-hidden">
+        <Lightning
+          hue={186}
+          xOffset={-1}
+          speed={1}
+          intensity={1}
+          size={1}
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      </div>
+      <main className=" relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between">
+        <div className="h-screen flex flex-col justify-center items-start">
+          <HeroSection />
+          <AboutSection />
         </div>
+        <FeaturedProjectSection />
+        <ExperienceSection />
+        <SkillsSection />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 }
+
+// --- Sub-components for better organization ---
+
+const HeroSection = () => (
+  <header className="relative  text-center sm:text-left mb-10 overflow-hidden py-16 rounded-xl">
+    <div className="absolute inset-0 -z-10">
+      <HeroBackground />
+    </div>
+    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+      Adam Honvedo
+    </h1>
+    <h2 className="mt-2 text-xl sm:text-2xl font-semibold text-primary">
+      Full-Stack Developer | Laravel | React.TS
+    </h2>
+    <div className="mt-6 flex justify-center items-center sm:justify-start  space-x-5">
+      <SocialLink
+        href="https://github.com/Homvi"
+        icon={<Github size={28} />}
+        label="GitHub"
+      />
+      <SocialLink
+        href="https://www.linkedin.com/in/adamhonvedo/"
+        icon={<Linkedin size={28} />}
+        label="LinkedIn"
+      />
+      <SocialLink
+        href="mailto:adam.honvedo@gmail.com"
+        icon={<Mail size={28} />}
+        label="Email"
+      />
+    </div>
+  </header>
+);
+
+const AboutSection = () => (
+  <Section title="About Me">
+    <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
+      Full-Stack Developer who builds real-world applications. I manage
+      production sites for a freelance client and am the sole creator of a SaaS
+      job-seeker platform using Laravel and React.TS. I'm ready to apply my
+      practical experience to a full-time role within a great team.
+    </p>
+  </Section>
+);
+
+const FeaturedProjectSection = () => (
+  <Section title="">
+    <div>
+      <Card className="overflow-hidden group">
+        <div className="overflow-hidden">
+          {/*  TODO: Replace with actual link to project or demo  */}
+          <Link href={'#'}>
+            <Image
+              src="/job-seeker-platform.png"
+              alt="Job Seeker Platform Screenshot"
+              width={1109}
+              height={788}
+              className="w-full h-auto object-cover border-r group-hover:scale-105 transition-transform duration-300 ease-in-out"
+            />
+          </Link>
+        </div>
+        <CardHeader>
+          <CardTitle>A Modern Solution for Hiring</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-lg mb-6 text-muted-foreground">
+            This platform was built from scratch to solve a problem I'm
+            passionate about: the frustrating experience for both companies and
+            candidates in the hiring process. It features a transparent
+            application tracking system and job validation to combat ghosting
+            and fake posts.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Button asChild>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Live Demo <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+            <Button
+              variant="secondary"
+              asChild
+            >
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Source Code
+              </a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </Section>
+);
+
+const ExperienceSection = () => (
+  <AnimatedSection>
+    <Section title="Experience">
+      <div className="space-y-6">
+        <ExperienceItem
+          title="Freelance Full-Stack Developer"
+          company="Hungarian Real Estate & Business Consulting"
+          date="[Start Date] – Present"
+          description="Developed and launched a production-level real estate listing platform using Laravel and Blade. I serve as the sole technical point-of-contact, providing ongoing maintenance, feature development, and strategic advice, ensuring high uptime and client satisfaction."
+        />
+        <ExperienceItem
+          title="Full-Stack Developer (Collaborator)"
+          company="Chingu-X (Voyages)"
+          date="2024.08 - 2024.12"
+          description="Collaborated in a remote, international Agile team to build a dashboard using Next.js 14. Implemented a complex, multi-step user registration UI and successfully integrated work into a long-running main branch through Git and pull requests."
+        />
+        <ExperienceItem
+          title="Cable Installer"
+          company="Abeking & Rasmussen, Germany"
+          date="2025 - Present"
+          description="Executed complex technical plans under strict deadlines in a high-stakes industrial environment. This role honed my problem-solving skills, attention to detail, and ability to collaborate effectively with engineering teams."
+        />
+      </div>
+    </Section>
+  </AnimatedSection>
+);
+
+const SkillsSection = () => (
+  <AnimatedSection>
+    <Section title="Core Technologies">
+      <div className="flex flex-wrap gap-3">
+        {[
+          'Laravel',
+          'PHP',
+          'React.TS',
+          'Next.js',
+          'JavaScript',
+          'TypeScript',
+          'HTML5 & CSS3',
+          'Tailwind CSS',
+          'MySQL',
+          'Git & GitHub',
+          'Agile/Scrum',
+          'Vercel',
+        ].map((skill, i) => (
+          <div key={skill}>
+            <Badge
+              variant={i < 4 ? 'default' : 'secondary'}
+              className="text-md px-4 py-2"
+            >
+              {skill}
+            </Badge>
+          </div>
+        ))}
+      </div>
+    </Section>
+  </AnimatedSection>
+);
+
+const Footer = () => (
+  <footer className="text-center py-8 border-t">
+    <p className="text-muted-foreground">
+      &copy; {new Date().getFullYear()} Adam Honvedo. Built with Next.js &
+      shadcn/ui.
+    </p>
+  </footer>
+);
+
+// --- Helper Components ---
+const Section = ({ title, children }) => (
+  <section className="mb-12 py-12">
+    <h3 className="text-2xl font-bold mb-6">{title}</h3>
+    {children}
+  </section>
+);
+
+const ExperienceItem = ({ title, company, date, description }) => (
+  <Card>
+    <CardHeader>
+      <div className="flex justify-between items-start flex-col sm:flex-row gap-2">
+        <div>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription className="text-primary font-semibold mt-1">
+            {company}
+          </CardDescription>
+        </div>
+        <p className="text-sm text-muted-foreground whitespace-nowrap pt-1">
+          {date}
+        </p>
+      </div>
+    </CardHeader>
+    <CardContent>
+      <p className="text-muted-foreground">{description}</p>
+    </CardContent>
+  </Card>
+);
+
+const SocialLink = ({ href, icon, label }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-muted-foreground hover:text-primary transition-colors"
+  >
+    {icon}
+    <span className="sr-only">{label}</span>
+  </a>
+);
+
+const AnimatedSection = ({ children }) => <div>{children}</div>;
