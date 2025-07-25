@@ -1,32 +1,32 @@
 // src/components/HeroSection/HeroSection.js
 import { Eye, Github } from 'lucide-react';
 import { projects } from './projectsData';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { SLIDE_DURATION } from '@/config';
 
 const ProjectsHeroSection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const [progressBarLength, setProgressBarLength] = useState<number>(0);
-  const [isAutoRolling, setIsAutoRolling] = useState<boolean>(true);
+  const isAutoRolling = useRef<boolean>(true);
+  const animationFrameId = useRef<number | null>(null);
 
   /* TODO: Add movie type/interface */
   const activeProject = projects[activeImageIndex];
 
   const advanceSlide = useCallback(() => {
-    if (isAutoRolling) {
+    if (isAutoRolling.current) {
       setActiveImageIndex((prev) => (prev + 1) % projects.length);
     }
-  }, [isAutoRolling]);
+  }, []);
 
   useEffect(() => {
     // Immediately reset progress bar when active image changes
     setProgressBarLength(0);
 
     // If not auto-rolling, don't start the timer
-    if (!isAutoRolling) return;
+    if (!isAutoRolling.current) return;
 
     const startTime = Date.now();
-    let animationFrameId: number;
 
     const updateProgressBar = () => {
       const elapsedTime = Date.now() - startTime;
@@ -35,23 +35,26 @@ const ProjectsHeroSection = () => {
       setProgressBarLength(progress);
 
       if (elapsedTime < SLIDE_DURATION) {
-        animationFrameId = requestAnimationFrame(updateProgressBar);
+        animationFrameId.current = requestAnimationFrame(updateProgressBar);
       } else {
         advanceSlide();
       }
     };
 
-    animationFrameId = requestAnimationFrame(updateProgressBar);
+    animationFrameId.current = requestAnimationFrame(updateProgressBar);
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [activeImageIndex, isAutoRolling, advanceSlide]);
+  }, [activeImageIndex, advanceSlide]);
 
   const handleThumbnailClick = (index: number) => {
-    setIsAutoRolling(false);
+    isAutoRolling.current = false;
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
+    }
     setActiveImageIndex(index);
     setProgressBarLength(0);
   };
@@ -126,7 +129,7 @@ const ProjectsHeroSection = () => {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  {activeImageIndex === index && isAutoRolling && (
+                  {activeImageIndex === index && isAutoRolling.current && (
                     <div className="w-full max-w-[33%] mx-auto h-1 bg-white/30 mt-3 relative">
                       <span
                         className="h-full bg-white/90 absolute"
