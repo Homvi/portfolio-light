@@ -1,30 +1,46 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, FC } from 'react';
 
-const Lightning = ({
+// Define the type for the component's props
+interface LightningProps {
+  hue?: number;
+  xOffset?: number;
+  speed?: number;
+  intensity?: number;
+  size?: number;
+}
+
+const Lightning: FC<LightningProps> = ({
   hue = 230,
   xOffset = 0,
   speed = 1,
   intensity = 1,
   size = 1,
 }) => {
-  const canvasRef = useRef(null);
+  // Type the canvas ref to be an HTMLCanvasElement
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // Use a ref to hold the animation frame ID for cleanup
+  const animationFrameId = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const resizeCanvas = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const gl = canvas.getContext('webgl');
+    // Type the WebGL context
+    const gl: WebGLRenderingContext | null = canvas.getContext('webgl');
     if (!gl) {
       console.error('WebGL not supported');
       return;
     }
+
+    const resizeCanvas = () => {
+      // Use devicePixelRatio for sharper rendering on high-DPI screens
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     const vertexShaderSource = `
       attribute vec2 aPosition;
@@ -113,11 +129,17 @@ const Lightning = ({
       }
     `;
 
-    const compileShader = (source, type) => {
+    // Type the arguments for the helper function
+    const compileShader = (
+      source: string,
+      type: number
+    ): WebGLShader | null => {
       const shader = gl.createShader(type);
       if (!shader) return null;
+
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
+
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         console.error('Shader compile error:', gl.getShaderInfoLog(shader));
         gl.deleteShader(shader);
@@ -135,6 +157,7 @@ const Lightning = ({
 
     const program = gl.createProgram();
     if (!program) return;
+
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
@@ -155,18 +178,34 @@ const Lightning = ({
     gl.enableVertexAttribArray(aPosition);
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
-    const iResolutionLocation = gl.getUniformLocation(program, 'iResolution');
-    const iTimeLocation = gl.getUniformLocation(program, 'iTime');
-    const uHueLocation = gl.getUniformLocation(program, 'uHue');
-    const uXOffsetLocation = gl.getUniformLocation(program, 'uXOffset');
-    const uSpeedLocation = gl.getUniformLocation(program, 'uSpeed');
-    const uIntensityLocation = gl.getUniformLocation(program, 'uIntensity');
-    const uSizeLocation = gl.getUniformLocation(program, 'uSize');
+    // Type uniform locations. It's safer as they can be null if misspelled.
+    const iResolutionLocation: WebGLUniformLocation | null =
+      gl.getUniformLocation(program, 'iResolution');
+    const iTimeLocation: WebGLUniformLocation | null = gl.getUniformLocation(
+      program,
+      'iTime'
+    );
+    const uHueLocation: WebGLUniformLocation | null = gl.getUniformLocation(
+      program,
+      'uHue'
+    );
+    const uXOffsetLocation: WebGLUniformLocation | null = gl.getUniformLocation(
+      program,
+      'uXOffset'
+    );
+    const uSpeedLocation: WebGLUniformLocation | null = gl.getUniformLocation(
+      program,
+      'uSpeed'
+    );
+    const uIntensityLocation: WebGLUniformLocation | null =
+      gl.getUniformLocation(program, 'uIntensity');
+    const uSizeLocation: WebGLUniformLocation | null = gl.getUniformLocation(
+      program,
+      'uSize'
+    );
 
     const startTime = performance.now();
     const render = () => {
-      resizeCanvas();
-      gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(iResolutionLocation, canvas.width, canvas.height);
       const currentTime = performance.now();
       gl.uniform1f(iTimeLocation, (currentTime - startTime) / 1000.0);
@@ -176,14 +215,24 @@ const Lightning = ({
       gl.uniform1f(uIntensityLocation, intensity);
       gl.uniform1f(uSizeLocation, size);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      requestAnimationFrame(render);
-    };
-    requestAnimationFrame(render);
 
+      animationFrameId.current = requestAnimationFrame(render);
+    };
+    render();
+
+    // Cleanup function to stop the animation and remove event listener
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      // Optional: clean up WebGL resources
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      gl.deleteBuffer(vertexBuffer);
     };
-  }, [hue, xOffset, speed, intensity, size]);
+  }, [hue, xOffset, speed, intensity, size]); // Dependencies remain the same
 
   return (
     <canvas
