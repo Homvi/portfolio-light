@@ -1,6 +1,6 @@
 // src/components/HeroSection/HeroSection.js
-import { Eye, Film, Github, Popcorn } from 'lucide-react';
-import { movies } from './movieData';
+import { Eye, Github } from 'lucide-react';
+import { projects } from './projectsData';
 import { useCallback, useEffect, useState } from 'react';
 import { SLIDE_DURATION } from '@/config';
 
@@ -10,11 +10,11 @@ const ProjectsHeroSection = () => {
   const [isAutoRolling, setIsAutoRolling] = useState<boolean>(true);
 
   /* TODO: Add movie type/interface */
-  const activeMovie = movies[activeImageIndex];
+  const activeProject = projects[activeImageIndex];
 
   const advanceSlide = useCallback(() => {
     if (isAutoRolling) {
-      setActiveImageIndex((prev) => (prev + 1) % movies.length);
+      setActiveImageIndex((prev) => (prev + 1) % projects.length);
     }
   }, [isAutoRolling]);
 
@@ -62,11 +62,11 @@ const ProjectsHeroSection = () => {
         <div className="flex h-full flex-col justify-end">
           <div className="flex flex-col gap-3 z-[11] max-w-sm relative">
             <h1 className="text-2xl font-bold max-w-xs relative">
-              {activeMovie.title}
+              {activeProject.title}
             </h1>
-            <p className="text-gray-300">{activeMovie.description}</p>
+            <p className="text-gray-300">{activeProject.description}</p>
             <p className="text-lg font bold">
-              {activeMovie.isSeries ? activeMovie.updateFrequency : ''}
+              {activeProject.isSeries ? activeProject.updateFrequency : ''}
             </p>
             {/* button container */}
             <div className="flex gap-3 font-bold">
@@ -98,8 +98,8 @@ const ProjectsHeroSection = () => {
             <div className="bg-background/90 h-full w-full z-10">
               <img
                 className="w-full absolute right-0 top-0 aspect-video"
-                src={activeMovie.image}
-                alt={activeMovie.title}
+                src={activeProject.image}
+                alt={activeProject.title}
               />
             </div>
           </div>
@@ -107,10 +107,10 @@ const ProjectsHeroSection = () => {
           {/*  TODO: change images automatically */}
           <div className="h-1/3 bg-gradient-to-b from-transparent via-background to-background relative z-10 py-11">
             <div className="flex justify-center left-0 gap-6">
-              {movies.map((movie, index) => (
+              {projects.map((project, index) => (
                 <div
                   className="flex flex-col"
-                  key={movie.title}
+                  key={project.title}
                   onClick={() => handleThumbnailClick(index)}
                 >
                   <div
@@ -121,8 +121,8 @@ const ProjectsHeroSection = () => {
                     }`}
                   >
                     <img
-                      src={movie.thumbnail}
-                      alt={movie.title}
+                      src={project.thumbnail}
+                      alt={project.title}
                       className="h-full w-full object-cover"
                     />
                   </div>

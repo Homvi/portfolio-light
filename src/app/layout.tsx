@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import FooterSection from './sections/footerSection';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           enableSystem={true}
         >
           {children}
+          <FooterSection />
         </ThemeProvider>
       </body>
     </html>

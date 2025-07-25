@@ -1,17 +1,23 @@
-import { motion } from 'framer-motion';
+// src/components/socialLink.tsx
 
-const SocialLink = ({ href, icon, label }) => (
-  <motion.a
+import type { ReactNode } from 'react';
+
+type SocialLinkProps = {
+  href: string;
+  icon: ReactNode;
+  label: string;
+};
+
+const SocialLink = ({ href, icon, label }: SocialLinkProps) => (
+  <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     className="text-muted-foreground hover:text-primary transition-colors"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.95 }}
   >
     {icon}
     <span className="sr-only">{label}</span>
-  </motion.a>
+  </a>
 );
 
 export default SocialLink;

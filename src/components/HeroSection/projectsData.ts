@@ -1,6 +1,6 @@
 /* TODO: import images from the public folder */
 
-export const movies = [
+export const projects = [
   {
     title: 'TuTrabajoJusto',
     thumbnail: 'https://placehold.co/400x600/1e293b/94a3b8.png?text=Job+board',
