@@ -1,6 +1,6 @@
 // src/components/HeroSection/HeroSection.js
 import { Eye, Github } from 'lucide-react';
-import { projects } from './projectsData';
+import { projects } from '@/features/projects/data/projectsData';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { SLIDE_DURATION } from '@/config';
 

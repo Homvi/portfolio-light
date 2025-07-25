@@ -1,7 +1,7 @@
 'use client';
 
 import Lightning from '@/components/lightning';
-import ProjectsHeroSection from '@/components/HeroSection/projectsHeroSection';
+import ProjectsSection from '@/features/projects/components/ProjectsSection';
 import HeroSection from './sections/heroSection';
 import AboutSection from './sections/aboutSection';
 import SkillsSection from './sections/skillsSection';
@@ -25,7 +25,7 @@ export default function PortfolioPage() {
           <HeroSection />
           <AboutSection />
         </div>
-        <ProjectsHeroSection />
+        <ProjectsSection />
         <SkillsSection />
       </main>
     </>
