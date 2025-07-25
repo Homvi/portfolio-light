@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { HeroBackground } from '@/components/hero-background';
 import Lightning from '@/components/lightning';
 import Link from 'next/link';
+import ProjectsHeroSection from '@/components/HeroSection/projectsHeroSection';
 
 // --- Main Page Component ---
 export default function PortfolioPage() {
@@ -34,8 +35,7 @@ export default function PortfolioPage() {
           <HeroSection />
           <AboutSection />
         </div>
-        <FeaturedProjectSection />
-        <ExperienceSection />
+        <ProjectsHeroSection />
         <SkillsSection />
       </main>
       <Footer />
@@ -46,7 +46,7 @@ export default function PortfolioPage() {
 // --- Sub-components for better organization ---
 
 const HeroSection = () => (
-  <header className="relative  text-center sm:text-left mb-10 overflow-hidden py-16 rounded-xl">
+  <header className="relative  text-center sm:text-left mb-10 overflow-hidden py-5 rounded-xl">
     <div className="absolute inset-0 -z-10">
       <HeroBackground />
     </div>
