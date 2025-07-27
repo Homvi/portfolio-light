@@ -3,6 +3,8 @@ import { Eye, Github } from 'lucide-react';
 import { projects } from '@/features/projects/data/projectsData';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { SLIDE_DURATION } from '@/config';
+import { Badge } from '@/components/ui/badge';
+import Image from 'next/image';
 
 const ProjectsHeroSection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
@@ -67,10 +69,19 @@ const ProjectsHeroSection = () => {
             <h1 className="text-2xl font-bold max-w-xs relative">
               {activeProject.title}
             </h1>
-            <p className="text-gray-300">{activeProject.description}</p>
-            <p className="text-lg font bold">
-              {activeProject.isSeries ? activeProject.updateFrequency : ''}
-            </p>
+            <div className="flex gap-1 max-w-xs flex-wrap">
+              {activeProject.technologies.map((tech, index) => (
+                <Badge
+                  key={tech}
+                  className={
+                    index < 4 ? 'bg-white text-black' : 'bg-gray-700 text-white'
+                  }
+                >
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+            <p className="text-gray-300">{activeProject.shortDescription}</p>
             {/* button container */}
             <div className="flex gap-3 font-bold">
               <div className="relative h-14 group">
@@ -99,10 +110,10 @@ const ProjectsHeroSection = () => {
           {/* cover image */}
           <div className="h-fit w-5/6 absolute right-0 top-0">
             <div className="bg-background/90 h-full w-full z-10">
-              <img
+              <Image
                 className="w-full absolute right-0 top-0 aspect-video"
-                src={activeProject.image}
-                alt={activeProject.title}
+                src={activeProject.coverImage.src}
+                alt={activeProject.coverImage.alt}
               />
             </div>
           </div>
@@ -123,9 +134,9 @@ const ProjectsHeroSection = () => {
                         : 'scale-100 border-transparent opacity-60'
                     }`}
                   >
-                    <img
-                      src={project.thumbnail}
-                      alt={project.title}
+                    <Image
+                      src={project.thumbnailUrl.src}
+                      alt={project.thumbnailUrl.alt}
                       className="h-full w-full object-cover"
                     />
                   </div>
