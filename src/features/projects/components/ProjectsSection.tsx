@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import { SLIDE_DURATION } from '@/config';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import { Project } from '@/types/project';
 
 const ProjectsHeroSection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
@@ -12,8 +13,7 @@ const ProjectsHeroSection = () => {
   const isAutoRolling = useRef<boolean>(true);
   const animationFrameId = useRef<number | null>(null);
 
-  /* TODO: Add movie type/interface */
-  const activeProject = projects[activeImageIndex];
+  const activeProject: Project = projects[activeImageIndex];
 
   const advanceSlide = useCallback(() => {
     if (isAutoRolling.current) {
@@ -118,7 +118,6 @@ const ProjectsHeroSection = () => {
             </div>
           </div>
           {/* thumbnails grid */}
-          {/*  TODO: change images automatically */}
           <div className="h-1/3 bg-gradient-to-b from-transparent via-background to-background relative z-10 py-11">
             <div className="flex justify-center left-0 gap-6">
               {projects.map((project, index) => (
