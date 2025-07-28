@@ -4,7 +4,7 @@ export interface Project {
   title: string;
   shortDescription: string;
   technologies: string[];
-  liveSiteUrl: string;
+  liveSiteUrl?: string;
   githubUrl?: string;
   coverImage: {
     src: StaticImageData | string;

@@ -6,6 +6,7 @@ import { SLIDE_DURATION } from '@/config';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Project } from '@/types/project';
+import Link from 'next/link';
 
 const ProjectsHeroSection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
@@ -88,21 +89,32 @@ const ProjectsHeroSection = () => {
                 {/* Background div with scaling effect on hover */}
                 <div className="bg-white w-full h-full absolute group-hover:bg-white/95 group-hover:scale-110 transition-transform duration-300"></div>
 
-                {/* Watch now Button */}
-                <button className="text-black px-6 z-10 py-2 w-full h-full relative flex justify-center items-center gap-3">
-                  {' '}
-                  <Eye /> Live demo
-                </button>
+                {/* Live site Button */}
+                {activeProject.liveSiteUrl && (
+                  <Link
+                    target="_blank"
+                    href={activeProject.liveSiteUrl}
+                  >
+                    <button className="text-black px-6 z-10 py-2 w-full h-full relative flex justify-center items-center gap-3">
+                      {' '}
+                      <Eye /> Live site
+                    </button>
+                  </Link>
+                )}
               </div>
 
               <div className="relative h-14 group">
                 {/* Background div with scaling effect on hover */}
                 <div className="bg-gray-700 w-full h-full absolute group-hover:scale-110 group-hover:bg-white  transition-transform duration-300"></div>
 
-                {/* Trailer Button */}
-                <button className="text-white px-6 z-10 py-2 w-full h-full relative flex justify-center items-center gap-3 group-hover:text-black">
-                  <Github /> Source code
-                </button>
+                {/* Source code Button */}
+                {activeProject.githubUrl && (
+                  <a href={activeProject.githubUrl}>
+                    <button className="text-white px-6 z-10 py-2 w-full h-full relative flex justify-center items-center gap-3 group-hover:text-black">
+                      <Github /> Source code
+                    </button>
+                  </a>
+                )}
               </div>
             </div>
           </div>
