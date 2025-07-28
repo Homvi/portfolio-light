@@ -1,8 +1,11 @@
 import tutrabajojustoCover from '@/assets/Images/tutrabajojusto/tutrabajojusto_cover_white.png';
-import tutrabajojustoThumbNail from '@/assets/Images/tutrabajojusto/tutrabajojusto_thumb_black.png';
+import tutrabajojustoThumbNail from '@/assets/Images/tutrabajojusto/tutrabajojusto_thumb_white.png';
 
 import smartPartnerCover from '@/assets/Images/smartPartner/smart_partner_cover.png';
-import smartPartnerThumbNail from '@/assets/Images/smartPartner/smart_partner_thumb_blue.png';
+import smartPartnerThumbNail from '@/assets/Images/smartPartner/smart_partner_thumb_white.png';
+
+import exprilliantCover from '@/assets/Images/exprilliant/exprilliant_cover.png';
+import exprilliantThumbNail from '@/assets/Images/exprilliant/exprilliant_thumb_white.png';
 
 import { Project } from '@/types/project';
 
@@ -43,13 +46,41 @@ export const projects: Project[] = [
     liveSiteUrl: 'https://www.smartingatlan.eu/',
     coverImage: {
       src: smartPartnerCover,
-      alt: 'TuTrabajoJusto cover image',
+      alt: 'Smart Ingatlan cover image',
       width: 1335,
       height: 751,
     },
     thumbnailUrl: {
       src: smartPartnerThumbNail,
-      alt: 'TuTrabajoJusto thumbnail',
+      alt: 'Smart Ingatlan thumbnail',
+      width: 400,
+      height: 600,
+    },
+  },
+  {
+    title: 'Exprilliant: Connect Through Language',
+    shortDescription:
+      'A hobby project I built to help language learners connect with culture, turning the challenge of learning common phrases and funny idioms into a fun, interactive game.',
+    technologies: [
+      'Laravel',
+      'Tailwind CSS',
+      'Inertia.js',
+      'React',
+      'TypeScript',
+      'DaisyUI',
+      'Vite',
+    ],
+    liveSiteUrl: 'https://exprilliant.netlify.app/',
+    githubUrl: 'https://github.com/Homvi/exprilliant',
+    coverImage: {
+      src: exprilliantCover,
+      alt: 'Exprilliant cover image',
+      width: 1335,
+      height: 751,
+    },
+    thumbnailUrl: {
+      src: exprilliantThumbNail,
+      alt: 'Exprilliant thumbnail',
       width: 400,
       height: 600,
     },
