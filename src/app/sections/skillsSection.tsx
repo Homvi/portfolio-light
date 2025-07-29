@@ -2,8 +2,11 @@ import Section from '@/components/section';
 import { Badge } from '@/components/ui/badge';
 
 const SkillsSection = () => (
-  <Section title="Core Technologies">
-    <div className="flex flex-wrap gap-3">
+  <Section
+    title="Core Technologies"
+    className="text-center sm:text-left"
+  >
+    <div className="flex flex-wrap gap-2 sm:gap-3">
       {[
         'Laravel',
         'PHP',
@@ -21,7 +24,7 @@ const SkillsSection = () => (
         <div key={skill}>
           <Badge
             variant={i < 4 ? 'default' : 'secondary'}
-            className=" text-md"
+            className="sm:text-md"
           >
             {skill}
           </Badge>
