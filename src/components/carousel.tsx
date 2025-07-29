@@ -3,15 +3,13 @@ import { motion, PanInfo, useMotionValue } from 'framer-motion';
 import React, { JSX } from 'react';
 import { projects } from '@/features/projects/data/projectsData';
 
-export interface CarouselItem {
-  title: string;
-  description: string;
-  id: number;
-  icon: React.ReactNode;
-}
+import { Project } from '@/types/project';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from './ui/button';
 
 export interface CarouselProps {
-  items?: CarouselItem[];
+  items?: Project[];
   baseWidth?: number;
   autoplay?: boolean;
   autoplayDelay?: number;
@@ -20,26 +18,7 @@ export interface CarouselProps {
   round?: boolean;
 }
 
-const DEFAULT_ITEMS: CarouselItem[] = [
-  {
-    title: projects[0].title,
-    description: projects[0].shortDescription,
-    id: 1,
-    icon: '',
-  },
-  {
-    title: projects[1].title,
-    description: projects[1].shortDescription,
-    id: 1,
-    icon: '',
-  },
-  {
-    title: projects[2].title,
-    description: projects[2].shortDescription,
-    id: 1,
-    icon: '',
-  },
-];
+const DEFAULT_ITEMS: Project[] = projects;
 
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
@@ -210,7 +189,7 @@ export default function Carousel({
           return (
             <motion.div
               key={index}
-              className={`relative shrink-0 flex flex-col ${
+              className={`relative shrink-0 flex flex-col aspect-video ${
                 round
                   ? 'items-center justify-center text-center bg-[#060010] border-0'
                   : 'items-start justify-between bg-[#222] border border-[#222] rounded-[12px]'
@@ -225,16 +204,31 @@ export default function Carousel({
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060010]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <div className="mb-1 font-black text-lg text-white">
-                  {item.title}
+              <Image
+                src={item.coverImage.src}
+                alt={item.coverImage.alt}
+                layout="fill"
+                className="object-cover"
+              />
+              <div
+                className={`absolute inset-0 bg-black/50 flex flex-col justify-between p-4`}
+              >
+                <div>
+                  <h3 className="text-white font-bold text-md">{item.title}</h3>
+                  {/* <p className="text-white text-sm">{item.shortDescription}</p> */}
                 </div>
-                <p className="text-sm text-white">{item.description}</p>
+                <div className="flex gap-2 mt-4">
+                  {item.liveSiteUrl && (
+                    <Link href={item.liveSiteUrl} passHref>
+                      <Button size={"sm"}>Live Site</Button>
+                    </Link>
+                  )}
+                  {item.githubUrl && (
+                    <Link href={item.githubUrl} passHref>
+                      <Button size={"sm"} variant={"secondary"}>Source Code</Button>
+                    </Link>
+                  )}
+                </div>
               </div>
             </motion.div>
           );

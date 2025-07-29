@@ -66,6 +66,7 @@ const ProjectsHeroSection = () => {
   return (
     <>
       {/* Mobile view */}
+      <h3 className="text-xl sm:hidden sm:text-3xl font-bold mb-6 text-center">Projects</h3>
       <div
         className="flex justify-center items-baseline h-fit sm:hidden"
         style={{ position: 'relative' }}
