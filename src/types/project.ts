@@ -2,6 +2,7 @@ import { StaticImageData } from 'next/image';
 
 export interface Project {
   title: string;
+  shortTitle: string;
   shortDescription: string;
   technologies: string[];
   liveSiteUrl?: string;

@@ -12,6 +12,7 @@ import { Project } from '@/types/project';
 export const projects: Project[] = [
   {
     title: 'TuTrabajoJusto: Real Offers, Fair Treatment',
+    shortTitle: 'TuTrabajoJusto',
     shortDescription:
       'A job platform for the Spanish market ensuring fair hiring through company validation and mandatory salary transparency.',
     technologies: [
@@ -40,6 +41,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Smart Ingatlan: Hungarian Real Estate Portal',
+    shortTitle: 'Smart Ingatlan',
     shortDescription:
       'A freelance project for a Hungarian client, a real estate portal with admin panel, and database. The client and their team can manage all property listings.',
     technologies: ['Laravel', 'Tailwind CSS', 'MySQL', 'Alpine.js'],
@@ -59,6 +61,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Exprilliant: Connect Through Language',
+    shortTitle: 'Exprilliant',
     shortDescription:
       'A hobby project I built to help language learners connect with culture, turning the challenge of learning common phrases and funny idioms into a fun, interactive game.',
     technologies: [

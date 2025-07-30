@@ -189,7 +189,7 @@ export default function Carousel({
           return (
             <motion.div
               key={index}
-              className={`relative shrink-0 flex flex-col aspect-video ${
+              className={`relative shrink-0 flex flex-col aspect-square ${
                 round
                   ? 'items-center justify-center text-center bg-[#060010] border-0'
                   : 'items-start justify-between bg-[#222] border border-[#222] rounded-[12px]'
@@ -207,25 +207,39 @@ export default function Carousel({
               <Image
                 src={item.coverImage.src}
                 alt={item.coverImage.alt}
-                layout="fill"
+                layout=""
                 className="object-cover"
               />
+              {/*  TODO: Add gradient background from bottom black to transparent */}
               <div
-                className={`absolute inset-0 bg-black/50 flex flex-col justify-between p-4`}
+                className={`absolute inset-0 bg-gradient-to-t from-background from-10% via-background via-45% to-emerald-500/10 to-70% flex flex-col justify-between p-4`}
               >
-                <div>
-                  <h3 className="text-white font-bold text-md">{item.title}</h3>
-                  {/* <p className="text-white text-sm">{item.shortDescription}</p> */}
+                <div className="flex flex-col justify-between h-full">
+                  <h3 className="text-white/90 font-semibold  text-sm bg-background/80 px-2 py-0 rounded-full text-center">
+                    {item.shortTitle}
+                  </h3>
+                  <p className="text-white text-xs">{item.shortDescription}</p>
                 </div>
                 <div className="flex gap-2 mt-4">
                   {item.liveSiteUrl && (
-                    <Link href={item.liveSiteUrl} passHref>
-                      <Button size={"sm"}>Live Site</Button>
+                    <Link
+                      href={item.liveSiteUrl}
+                      passHref
+                    >
+                      <Button size={'sm'}>Live Site</Button>
                     </Link>
                   )}
                   {item.githubUrl && (
-                    <Link href={item.githubUrl} passHref>
-                      <Button size={"sm"} variant={"secondary"}>Source Code</Button>
+                    <Link
+                      href={item.githubUrl}
+                      passHref
+                    >
+                      <Button
+                        size={'sm'}
+                        variant={'secondary'}
+                      >
+                        Source Code
+                      </Button>
                     </Link>
                   )}
                 </div>
