@@ -24,7 +24,7 @@ export const projects: Project[] = [
       'MySQL',
       'Git',
     ],
-    liveSiteUrl: undefined, // TODO: Add live site URL when available
+    liveSiteUrl: 'https://tutrabajojusto.ddns.net',
     githubUrl: 'https://github.com/Homvi/tutrabajojusto-platform',
     coverImage: {
       src: tutrabajojustoCover,
