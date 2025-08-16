@@ -73,7 +73,7 @@ export const projects: Project[] = [
       'DaisyUI',
       'Vite',
     ],
-    liveSiteUrl: 'https://exprilliant.netlify.app/',
+    liveSiteUrl: 'https://exprilliant.com/',
     githubUrl: 'https://github.com/Homvi/exprilliant',
     coverImage: {
       src: exprilliantCover,
